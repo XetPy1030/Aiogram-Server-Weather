@@ -9,7 +9,7 @@ router = Router()
 
 
 @router.message(filters.Command("weather"))
-async def weather(message: types.Message, state: FSMContext):
+async def weather_handler(message: types.Message, state: FSMContext):
     await setup_weather(message, state)
 
 
@@ -19,12 +19,12 @@ async def setup_weather(message, state):
 
 
 @router.message(F.text == find_weather_text)
-async def find_weather(message: types.Message, state: FSMContext):
+async def find_weather_handler(message: types.Message, state: FSMContext):
     await setup_weather(message, state)
 
 
 @router.message(F.text == "Отмена")
-async def cancel(message: types.Message, state: FSMContext):
+async def cancel_handler(message: types.Message, state: FSMContext):
     await message.answer("Отменено", reply_markup=find_weather_kb)
     await state.clear()
 
